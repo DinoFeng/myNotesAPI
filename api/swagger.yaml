@@ -11,7 +11,7 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "petstore.swagger.io"
+#host: "petstore.swagger.io"
 basePath: "/v1"
 schemes:
 - "http"
@@ -75,7 +75,7 @@ paths:
       - "note"
       summary: "Updates a note in the store with form data"
       description: ""
-      operationId: "updateNoteWithForm"
+      operationId: "updateNote"
       parameters:
       - name: "Id"
         in: "path"

@@ -1,6 +1,7 @@
 'use strict';
+var response = require('../dbbase/BaseResponse');
 
-exports.addNote = function(args, res, next) {
+exports.addNote = function (args, res, next) {
   /**
    * Add a new note
    * 
@@ -8,22 +9,45 @@ exports.addNote = function(args, res, next) {
    * body Note Note object that needs to be added to the store
    * returns BaseResponse
    **/
-  var examples = {};
-  examples['application/json'] = {
-  "resultType" : "aeiou",
-  "results" : "{}",
-  "resultMsg" : "aeiou",
-  "exceptionDetail" : "{}"
-};
-  if (Object.keys(examples).length > 0) {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
-  } else {
-    res.end();
-  }
+
+  var newNote = args.body.value;
+  var noteModel = global.dbHandle.getModel("note");
+  
+  noteModel.create(newNote, function (err) {
+    if (err) {
+      //return next(err);
+      //res.end(JSON.stringify(response.createNew(err)));
+      res.json(response.createNew(err));
+    } else {
+      console.log("笔记已经成功写入数据库啦！！！");
+
+      noteModel.find({}, function (err, notes) {
+        if (err) {
+          console.log("咦？是怎么回事呢？");
+          res.json(response.createNew(err));
+        } else {
+          res.json(response.createNew(null, notes));
+        }
+      });
+    }
+  });
+
+  // var examples = {};
+  // examples['application/json'] = {
+  //   "resultType": "aeiou",
+  //   "results": "{}",
+  //   "resultMsg": "aeiou",
+  //   "exceptionDetail": "{}"
+  // };
+  // if (Object.keys(examples).length > 0) {
+  //   res.setHeader('Content-Type', 'application/json');
+  //   res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
+  // } else {
+  //   res.end();
+  // }
 }
 
-exports.deleteNote = function(args, res, next) {
+exports.deleteNote = function (args, res, next) {
   /**
    * Deletes a note
    * 
@@ -33,11 +57,11 @@ exports.deleteNote = function(args, res, next) {
    **/
   var examples = {};
   examples['application/json'] = {
-  "resultType" : "aeiou",
-  "results" : "{}",
-  "resultMsg" : "aeiou",
-  "exceptionDetail" : "{}"
-};
+    "resultType": "aeiou",
+    "results": "{}",
+    "resultMsg": "aeiou",
+    "exceptionDetail": "{}"
+  };
   if (Object.keys(examples).length > 0) {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
@@ -46,7 +70,7 @@ exports.deleteNote = function(args, res, next) {
   }
 }
 
-exports.findNotesByTags = function(args, res, next) {
+exports.findNotesByTags = function (args, res, next) {
   /**
    * Finds Pets by tags
    * Muliple tags can be provided with comma seperated strings. Use tag1, tag2, tag3 for testing.
@@ -54,22 +78,33 @@ exports.findNotesByTags = function(args, res, next) {
    * tags List Tags to filter by (optional)
    * returns BaseResponse
    **/
-  var examples = {};
-  examples['application/json'] = {
-  "resultType" : "aeiou",
-  "results" : "{}",
-  "resultMsg" : "aeiou",
-  "exceptionDetail" : "{}"
-};
-  if (Object.keys(examples).length > 0) {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
-  } else {
-    res.end();
-  }
+  res.setHeader('Content-Type', 'application/json');
+
+  var noteModel=global.dbHandle.getModel("note");/*获取note数据库模型，模型能直接对数据库进行操作*/
+	noteModel.find({},function(err,notes){
+		if(err){
+			//return next(err);
+      res.end(response.createNew(err));
+		}else{
+			res.end(response.createNew(notes));
+		}
+	});
+  // var examples = {};
+  // examples['application/json'] = {
+  //   "resultType": "aeiou",
+  //   "results": "{}",
+  //   "resultMsg": "aeiou",
+  //   "exceptionDetail": "{}"
+  // };
+  // if (Object.keys(examples).length > 0) {
+  //   res.setHeader('Content-Type', 'application/json');
+  //   res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
+  // } else {
+  //   res.end();
+  // }
 }
 
-exports.getNoteById = function(args, res, next) {
+exports.getNoteById = function (args, res, next) {
   /**
    * Find note by ID
    * Returns a note
@@ -77,22 +112,33 @@ exports.getNoteById = function(args, res, next) {
    * id String ID of pet that needs to be fetched
    * returns BaseResponse
    **/
-  var examples = {};
-  examples['application/json'] = {
-  "resultType" : "aeiou",
-  "results" : "{}",
-  "resultMsg" : "aeiou",
-  "exceptionDetail" : "{}"
-};
-  if (Object.keys(examples).length > 0) {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
-  } else {
-    res.end();
-  }
+  res.setHeader('Content-Type', 'application/json');
+
+  var noteModel=global.dbHandle.getModel("note");/*获取note数据库模型，模型能直接对数据库进行操作*/
+	noteModel.find({},function(err,notes){
+		if(err){
+			//return next(err);
+      res.end(response.createNew(err));
+		}else{
+			res.end(response.createNew(notes));
+		}
+	});
+  // var examples = {};
+  // examples['application/json'] = {
+  //   "resultType": "aeiou",
+  //   "results": "{}",
+  //   "resultMsg": "aeiou",
+  //   "exceptionDetail": "{}"
+  // };
+  // if (Object.keys(examples).length > 0) {
+  //   res.setHeader('Content-Type', 'application/json');
+  //   res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
+  // } else {
+  //   res.end();
+  // }
 }
 
-exports.updateNoteWithForm = function(args, res, next) {
+exports.updateNote = function (args, res, next) {
   /**
    * Updates a note in the store with form data
    * 
@@ -103,11 +149,11 @@ exports.updateNoteWithForm = function(args, res, next) {
    **/
   var examples = {};
   examples['application/json'] = {
-  "resultType" : "aeiou",
-  "results" : "{}",
-  "resultMsg" : "aeiou",
-  "exceptionDetail" : "{}"
-};
+    "resultType": "aeiou",
+    "results": "{}",
+    "resultMsg": "aeiou",
+    "exceptionDetail": "{}"
+  };
   if (Object.keys(examples).length > 0) {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));

@@ -1,11 +1,17 @@
 'use strict';
 
-var app = require('connect')();
+//var app = require('connect')();
+var app = require('express')();
 var http = require('http');
 var swaggerTools = require('swagger-tools');
 var jsyaml = require('js-yaml');
 var fs = require('fs');
 var serverPort = 8080;
+
+var mongoose=require('mongoose');
+global.dbHandle=require("./dbbase/dbHandle.js");
+global.db=mongoose.connect("mongodb://workbench_user:1234567@ds062339.mlab.com:62339/instant_noodle_db");
+
 
 // swaggerRouter configuration
 var options = {

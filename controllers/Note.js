@@ -20,6 +20,6 @@ module.exports.getNoteById = function getNoteById (req, res, next) {
   Note.getNoteById(req.swagger.params, res, next);
 };
 
-module.exports.updateNoteWithForm = function updateNoteWithForm (req, res, next) {
-  Note.updateNoteWithForm(req.swagger.params, res, next);
+module.exports.updateNote = function updateNote (req, res, next) {
+  Note.updateNote(req.swagger.params, res, next);
 };
