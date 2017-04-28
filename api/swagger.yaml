@@ -83,7 +83,7 @@ paths:
         required: true
         type: "string"
       - in: "body"
-        name: "name"
+        name: "body"
         description: "Updated name of the pet"
         required: true
         schema:
@@ -120,14 +120,14 @@ paths:
         - "write_notes"
         - "read_notes"
       x-swagger-router-controller: "Note"
-  /note/findByTags:
+  /note/findAllNotes:
     get:
       tags:
       - "note"
       summary: "Finds Pets by tags"
       description: "Muliple tags can be provided with comma seperated strings. Use\
         \ tag1, tag2, tag3 for testing."
-      operationId: "findNotesByTags"
+      operationId: "findAllNotes"
       parameters:
       - name: "tags"
         in: "query"
@@ -306,8 +306,7 @@ definitions:
   Note:
     type: "object"
     properties:
-      id:
-        type: "string"
+     
       title:
         type: "string"
       content:
@@ -324,8 +323,7 @@ definitions:
   User:
     type: "object"
     properties:
-      id:
-        type: "string"
+      
       username:
         type: "string"
       firstName:
@@ -358,7 +356,6 @@ definitions:
   Tag:
     type: "object"
     properties:
-      id:
-        type: "string"
+     
       name:
         type: "string"

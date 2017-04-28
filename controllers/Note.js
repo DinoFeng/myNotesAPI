@@ -12,8 +12,8 @@ module.exports.deleteNote = function deleteNote (req, res, next) {
   Note.deleteNote(req.swagger.params, res, next);
 };
 
-module.exports.findNotesByTags = function findNotesByTags (req, res, next) {
-  Note.findNotesByTags(req.swagger.params, res, next);
+module.exports.findAllNotes = function findAllNotes (req, res, next) {
+  Note.findAllNotes(req.swagger.params, res, next);
 };
 
 module.exports.getNoteById = function getNoteById (req, res, next) {

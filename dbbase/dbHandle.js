@@ -1,22 +1,33 @@
-var mongoose=require('mongoose');
-var models=require('./models.js');
+var Promise = require('bluebird');
+var mongoose = require('mongoose');
 
-var Schema=mongoose.Schema;
-/*根据已经规划好的数据库模型表定义各种数据库模型，传入必要的模型骨架Schema和模型名（类型）*/
-for( var modelName in models ){
-	mongoose.model( modelName , new Schema( models[ modelName ] ));
-}
+mongoose.Promise = Promise;
 
-/*传入模型名（类型）获取到相应的模型*/
-module.exports={
-	getModel : function( modelName ){
-		return _getModel( modelName );
-	}
-};
+var connection="mongodb://workbench_user:1234567@ds062339.mlab.com:62339/instant_noodle_db";
+/**
+ * 连接
+ */
+mongoose.connect(connection);
 
-var _getModel=function( modelName ){
-	return mongoose.model( modelName );
-}
+/**
+  * 连接成功
+  */
+mongoose.connection.on('connected', () => {    
+    console.log('Mongoose connection open to ' + connection);  
+});
 
-/* 总的来说这个数据库操控模块功能就是根据已经有了的数据库模型规划表生成各种实际的
-数据库模型，并当传入一个数据库模型名给它时，给你返回相应的数据库模型，得到数据库模型你可以去操控数据库*/
+/**
+ * 连接异常
+ */
+mongoose.connection.on('error', (err) => {    
+    console.log('Mongoose connection error: ' + err);  
+});
+ 
+/**
+ * 连接断开
+ */
+mongoose.connection.on('disconnected', () => {    
+    console.log('Mongoose connection disconnected');  
+});
+
+module.exports = mongoose;

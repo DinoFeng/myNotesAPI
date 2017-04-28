@@ -8,9 +8,9 @@ var jsyaml = require('js-yaml');
 var fs = require('fs');
 var serverPort = 8080;
 
-var mongoose=require('mongoose');
+//var mongoose=require('mongoose');
 global.dbHandle=require("./dbbase/dbHandle.js");
-global.db=mongoose.connect("mongodb://workbench_user:1234567@ds062339.mlab.com:62339/instant_noodle_db");
+//global.db=mongoose.connect("mongodb://workbench_user:1234567@ds062339.mlab.com:62339/instant_noodle_db");
 
 
 // swaggerRouter configuration
