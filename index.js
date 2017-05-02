@@ -9,7 +9,7 @@ var fs = require('fs');
 var serverPort = 8080;
 
 //var mongoose=require('mongoose');
-global.dbHandle=require("./dbbase/dbHandle.js");
+global.dbHandle = require("./dbbase/dbHandle.js");
 //global.db=mongoose.connect("mongodb://workbench_user:1234567@ds062339.mlab.com:62339/instant_noodle_db");
 
 
@@ -37,6 +37,13 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   // Serve the Swagger documents and Swagger UI
   app.use(middleware.swaggerUi());
+
+  app.use('*', (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    next();
+  });
 
   // Start the server
   http.createServer(app).listen(serverPort, function () {
