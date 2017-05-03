@@ -12,19 +12,19 @@ var baseSchema = {
 };
 
 exports.createNew = function (error, resultData, msg) {
-    var result = baseSchema;
+    var result = extend({}, baseSchema);
     if (resultData) {
-        result=extend(result, {
+        result = extend(result, {
             resultType: SUCCESS,
-            resultMsg:msg ,
+            resultMsg: msg,
             results: resultData,
         });
     }
 
     if (error) {
-        result=extend(result, {
+        result = extend(result, {
             resultType: ERROR,
-            resultMsg: msg || error.message ,
+            resultMsg: msg || error.message,
             exceptionDetail: error,
         });
     }
